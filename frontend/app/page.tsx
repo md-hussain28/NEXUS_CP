@@ -8,9 +8,9 @@ import { ChevronRight, Terminal, Zap } from "lucide-react";
 
 export default function Home() {
   return (
-    <main className="relative h-fit lg:h-screen overflow-hidden bg-[#0D1117] text-white">
+    <main className="relative min-h-screen  overflow-hidden bg-[#0D1117] text-white">
       {/* Animated code rain background */}
-      <div className="absolute inset-0 z-0 opacity-40">
+      <div className="absolute min-h-screen inset-0 z-0 opacity-40">
         <CodeRain />
       </div>
 
