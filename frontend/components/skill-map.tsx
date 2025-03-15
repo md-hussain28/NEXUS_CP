@@ -1,46 +1,96 @@
-"use client"
+"use client";
 
-import { useEffect, useRef } from "react"
-import ForceGraph2D from "react-force-graph-2d"
+import { useRef } from "react";
+
+interface Node {
+  id: string;
+  name: string;
+  group: number;
+  val: number;
+  level: number;
+}
+
+interface Link {
+  source: string;
+  target: string;
+  value: number;
+}
 
 export function SkillMap() {
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    // Resize observer to handle container size changes
-    if (containerRef.current) {
-      const resizeObserver = new ResizeObserver(() => {
-        window.dispatchEvent(new Event("resize"))
-      })
-
-      resizeObserver.observe(containerRef.current)
-
-      return () => {
-        if (containerRef.current) {
-          resizeObserver.unobserve(containerRef.current)
-        }
-      }
-    }
-  }, [])
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // Sample skill map data
   const graphData = {
     nodes: [
       { id: "algorithms", name: "Algorithms", group: 1, val: 25, level: 85 },
-      { id: "dataStructures", name: "Data Structures", group: 1, val: 20, level: 75 },
-      { id: "dynamicProgramming", name: "Dynamic Programming", group: 2, val: 18, level: 90 },
+      {
+        id: "dataStructures",
+        name: "Data Structures",
+        group: 1,
+        val: 20,
+        level: 75,
+      },
+      {
+        id: "dynamicProgramming",
+        name: "Dynamic Programming",
+        group: 2,
+        val: 18,
+        level: 90,
+      },
       { id: "graphTheory", name: "Graph Theory", group: 2, val: 15, level: 45 },
       { id: "trees", name: "Trees", group: 3, val: 12, level: 75 },
       { id: "greedy", name: "Greedy Algorithms", group: 2, val: 10, level: 60 },
-      { id: "bitManipulation", name: "Bit Manipulation", group: 4, val: 8, level: 40 },
-      { id: "strings", name: "String Algorithms", group: 3, val: 15, level: 70 },
-      { id: "segmentTrees", name: "Segment Trees", group: 3, val: 10, level: 30 },
-      { id: "fenwickTrees", name: "Fenwick Trees", group: 3, val: 8, level: 25 },
+      {
+        id: "bitManipulation",
+        name: "Bit Manipulation",
+        group: 4,
+        val: 8,
+        level: 40,
+      },
+      {
+        id: "strings",
+        name: "String Algorithms",
+        group: 3,
+        val: 15,
+        level: 70,
+      },
+      {
+        id: "segmentTrees",
+        name: "Segment Trees",
+        group: 3,
+        val: 10,
+        level: 30,
+      },
+      {
+        id: "fenwickTrees",
+        name: "Fenwick Trees",
+        group: 3,
+        val: 8,
+        level: 25,
+      },
       { id: "networkFlow", name: "Network Flow", group: 2, val: 12, level: 20 },
-      { id: "binarySearch", name: "Binary Search", group: 1, val: 15, level: 80 },
+      {
+        id: "binarySearch",
+        name: "Binary Search",
+        group: 1,
+        val: 15,
+        level: 80,
+      },
       { id: "heaps", name: "Heaps", group: 3, val: 10, level: 65 },
-      { id: "divideConquer", name: "Divide & Conquer", group: 1, val: 12, level: 70 },
-      { id: "backtracking", name: "Backtracking", group: 4, val: 10, level: 55 },
+      {
+        id: "divideConquer",
+        name: "Divide & Conquer",
+        group: 1,
+        val: 12,
+        level: 70,
+      },
+      {
+        id: "backtracking",
+        name: "Backtracking",
+        group: 4,
+        val: 10,
+        level: 55,
+      },
     ],
     links: [
       { source: "algorithms", target: "dynamicProgramming", value: 5 },
@@ -62,36 +112,50 @@ export function SkillMap() {
       { source: "divideConquer", target: "binarySearch", value: 3 },
       { source: "backtracking", target: "dynamicProgramming", value: 2 },
     ],
-  }
+  };
 
   return (
-    <div ref={containerRef} className="w-full h-full">
-      <ForceGraph2D
-        graphData={graphData}
-        nodeId="id"
-        nodeVal="val"
-        nodeLabel="name"
-        nodeColor={(node) => {
-          // Color based on mastery level
-          const level = node.level as number
-          if (level > 75) return "#00FF41"
-          if (level > 50) return "#00FFFF"
-          if (level > 25) return "#318CE7"
-          return "#FFA116"
-        }}
-        nodeRelSize={6}
-        linkWidth={(link) => (link.value as number) * 0.5}
-        linkColor={() => "#00FFFF30"}
-        backgroundColor="transparent"
-        cooldownTicks={100}
-        linkDirectionalParticles={2}
-        linkDirectionalParticleWidth={1}
-        linkDirectionalParticleSpeed={0.005}
-        d3AlphaDecay={0.02}
-        d3VelocityDecay={0.1}
-        warmupTicks={100}
-      />
-    </div>
-  )
-}
+    <div
+      ref={containerRef}
+      className="relative w-[600px] h-[600px] mx-auto perspective-1000"
+    >
+      {graphData.nodes.map((node, i) => {
+        const angle = (i / graphData.nodes.length) * 360;
+        const radius = 200;
+        const x = radius * Math.cos((angle * Math.PI) / 180);
+        const y = radius * Math.sin((angle * Math.PI) / 180);
+        const z = Math.sin((i * 20 * Math.PI) / 180) * 50;
 
+        return (
+          <div
+            key={node.id}
+            className="absolute transform transition-all duration-500 hover:scale-110"
+            style={{
+              transform: `translate3d(${x}px, ${y}px, ${z}px)`,
+              left: "50%",
+              top: "50%",
+            }}
+          >
+            <div
+              className="rounded-full p-4 text-center text-white"
+              style={{
+                backgroundColor:
+                  node.level > 75
+                    ? "#00FF41"
+                    : node.level > 50
+                    ? "#00FFFF"
+                    : node.level > 25
+                    ? "#318CE7"
+                    : "#FFA116",
+                width: `${node.val * 2}px`,
+                height: `${node.val * 2}px`,
+              }}
+            >
+              {node.name}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
