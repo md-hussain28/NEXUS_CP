@@ -1,0 +1,237 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 142.1 76.2% 36.3%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 142.1 76.2% 36.3%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 20 14.3% 4.1%;
+    --foreground: 0 0% 95%;
+    --card: 24 9.8% 10%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 142.1 70.6% 45.3%;
+    --primary-foreground: 144.9 80.4% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 142.4 71.8% 29.2%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Cyberpunk styling */
+@font-face {
+  font-family: "CyberFont";
+  src: url("/fonts/Geist-Bold.ttf") format("truetype");
+}
+
+.font-cyber {
+  font-family: "CyberFont", monospace;
+}
+
+/* Scan lines effect */
+.scan-lines {
+  background: linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
+  background-size: 100% 4px;
+  height: 100%;
+  width: 100%;
+  animation: scanlines 8s linear infinite;
+}
+
+@keyframes scanlines {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+/* Circuit pattern */
+.circuit-pattern {
+  background-image: radial-gradient(#00ffff10 1px, transparent 1px),
+    linear-gradient(to right, #00ffff10 1px, transparent 1px),
+    linear-gradient(to bottom, #00ffff10 1px, transparent 1px);
+  background-size: 20px 20px, 20px 20px, 20px 20px;
+}
+
+/* Typing animation */
+.typing-animation {
+  border-right: 2px solid #00ffff;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  animation: typing 3s steps(40) 1s 1 normal both, blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #00ffff;
+  }
+}
+
+/* Glitch animations */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+@keyframes glitch-1 {
+  0% {
+    clip-path: inset(20% 0 80% 0);
+    transform: translate(-2px, 2px);
+  }
+  20% {
+    clip-path: inset(60% 0 40% 0);
+    transform: translate(2px, -2px);
+  }
+  40% {
+    clip-path: inset(40% 0 60% 0);
+    transform: translate(2px, 2px);
+  }
+  60% {
+    clip-path: inset(80% 0 20% 0);
+    transform: translate(-2px, -2px);
+  }
+  80% {
+    clip-path: inset(10% 0 90% 0);
+    transform: translate(2px, 2px);
+  }
+  100% {
+    clip-path: inset(30% 0 70% 0);
+    transform: translate(-2px, 2px);
+  }
+}
+
+@keyframes glitch-2 {
+  0% {
+    clip-path: inset(30% 0 70% 0);
+    transform: translate(2px, -2px);
+  }
+  20% {
+    clip-path: inset(10% 0 90% 0);
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    clip-path: inset(70% 0 30% 0);
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    clip-path: inset(20% 0 80% 0);
+    transform: translate(2px, 2px);
+  }
+  80% {
+    clip-path: inset(50% 0 50% 0);
+    transform: translate(2px, -2px);
+  }
+  100% {
+    clip-path: inset(80% 0 20% 0);
+    transform: translate(-2px, 2px);
+  }
+}
+
+.animate-glitch {
+  animation: glitch 500ms infinite;
+}
+
+.animate-glitch-1 {
+  animation: glitch-1 500ms infinite linear alternate-reverse;
+}
+
+.animate-glitch-2 {
+  animation: glitch-2 500ms infinite linear alternate-reverse;
+}
+
+.clip-text {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Loading text animation */
+.loading-text {
+  position: relative;
+  color: #00ff41;
+  font-family: monospace;
+  letter-spacing: 0.1em;
+  animation: loading-text-animation 1.5s infinite;
+}
+
+@keyframes loading-text-animation {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
