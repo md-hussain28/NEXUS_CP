@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowLeft, Compass, Map, Zap } from "lucide-react";
 import { useUserStore } from "@/lib/store";
-import { SkillMap } from "@/components/skill-map";
+//  import { SkillMap } from "@/components/skill-map";
 
 export default function HackHorizonPage() {
   const [activeTab, setActiveTab] = useState("skill-map");
@@ -167,9 +167,7 @@ export default function HackHorizonPage() {
                       </div>
                     </div>
 
-                    <div className="h-[400px]">
-                      <SkillMap />
-                    </div>
+                    <div className="h-[400px]">{/* <SkillMap /> */}</div>
 
                     <div className="mt-4 font-mono text-xs text-white/70 text-center">
                       Your current skill landscape. Brighter nodes represent
